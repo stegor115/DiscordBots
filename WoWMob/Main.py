@@ -2,13 +2,28 @@ import discord
 from random import randrange
 
 #Custom imports
-from src import HumanGuard
+#from src import HumanGuard
 
 #Due to this bot being available on Github, for security the token is parsed in from an excluded file.
 file = open('token.txt','r')
 TOKEN = file.read()
 
 client = discord.Client()
+
+#CLASSES SECTION ----------------------------------------------------------------------------------------------
+class HumanGuard(object):
+    def __init__(self):
+        self.streak = 0
+    def check(self, message):
+        #Will check streak to see which response it needs
+        return "test"
+    def response(self, message):
+        return "test"
+    def pissed(self):
+        return "test"
+    def resetStreak(self):
+        return "test"
+#CLASSES SECTION ----------------------------------------------------------------------------------------------
 
 #Global Variable List
 lastMessage = ""
@@ -52,7 +67,7 @@ async def on_message(message):
 
     #Checks if the message is a question, and if a question has already been asked.
     if inMessage.startswith("/target stormwind guard"):
-        await client.send_message(message.channel, humanGuard.response(inMessage))
+        await client.send_message(message.channel, humanGuard.response(humanGuard, inMessage))
         #if streak < 7:
         #    await client.send_message(message.channel, Human_Guard_Response())
         #    streak = streak + 1
