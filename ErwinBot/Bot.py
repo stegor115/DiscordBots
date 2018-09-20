@@ -15,11 +15,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    #if message.content.startswith('!hello'):
-    #    msg = 'Hello {0.author.mention}'.format(message)
-    #    await client.send_message(message.channel, msg)
-    #    print('Message sent.')
-
     inMessage = message.content
     global boolQuestionAsked
     global boolDebugMode
