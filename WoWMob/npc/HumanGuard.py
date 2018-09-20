@@ -5,15 +5,18 @@ class HumanGuard(object):
     def check(self, message):
         #Will check streak to see which response it needs
         #Add If another / exists in phrase
-        if self.streak < 7:
-            self.streak = self.streak + 1
-            return self.response()
-        elif self.streak >= 7 and self.streak < 12:
-            self.streak = self.streak + 1
-            return self.pissed()
+        if not "/wave" in message and not "/salute" in message:
+            if self.streak < 7:
+                self.streak = self.streak + 1
+                return self.response()
+            elif self.streak >= 7 and self.streak < 12:
+                self.streak = self.streak + 1
+                return self.pissed()
+            else:
+                self.streak = 1
+                return self.response()
         else:
-            self.streak = 1
-            return self.response()
+            return self.emote(message)
     def response(self): #Regular responses
         responses = [
         'Greetings.',
@@ -38,9 +41,14 @@ class HumanGuard(object):
         ] #End array
         choice = randrange(len(responses))
         return responses[choice]
-    def emote(self): #Responses if the NPC has emotes it does back to players
-        return "test"
+    def emote(self, message): #Responses if the NPC has emotes it does back to players
+        if self.streak == 0: #Stop potential image spam
+            self.streak = 1
+        if "/wave" in message:
+            return '/wave'
+        elif "/salute" in message:
+            return '/salute'
     def getStreak(self): #Returns streak to detirmine if picture should be posted
         return self.streak
     def resetStreak(self): #Resets streak if interrupted
-        return "test"
+        self.streak = 0

@@ -3,6 +3,7 @@ from random import randrange
 
 #Custom imports
 from npc import HumanGuard
+from npc import OrcPeon
 
 #Due to this bot being available on Github, for security the token is parsed in from an excluded file.
 file = open('token.txt','r')
@@ -13,6 +14,7 @@ client = discord.Client()
 #Global Variable List
 lastMessage = ""
 #Global NPC Variables
+orcPeon = OrcPeon.OrcPeon()
 humanGuard = HumanGuard.HumanGuard()
 
 @client.event
@@ -24,26 +26,25 @@ async def on_message(message):
     inMessage = message.content.lower()
     #global list
     global humanGuard
+    global orcPeon
 
-    #Checks if the message is a question, and if a question has already been asked.
+    #List of potential targets (Alphabetical Order)
+    #Orc Peon
+    if inMessage.startswith("/target orc peon"):
+        if orcPeon.getStreak() == 0:
+            await client.send_file(message.channel, "img/orcpeon.jpg")
+        await client.send_message(message.channel, orcPeon.check(inMessage))
+        return
+    else:
+        orcPeon.resetStreak()
+    #Stormwind Guard
     if inMessage.startswith("/target stormwind guard"):
-        if humanGuard.getStreak == 0:
+        if humanGuard.getStreak() == 0:
             await client.send_file(message.channel, "img/stormwindguard.png")
         await client.send_message(message.channel, humanGuard.check(inMessage))
-    
-   # elif inMessage == "/target stormwind guard /wave":
-    #    print ("Wave request recognized.")
-    #    msg = "/wave"
-    #    await client.send_message(message.channel, msg)
-
-    #elif inMessage == "/target stormwind guard /salute":
-     #   print ("Salute request recognize.")
-      #  msg = "/salute"
-      #  await client.send_message(message.channel, msg)
-    
-   # else:
-      #  print("Reseting streak.")
-      #  streak = 0
+        return
+    else:
+        humanGuard.resetStreak()
         
 
 @client.event
