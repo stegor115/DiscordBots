@@ -32,6 +32,29 @@ async def on_message(message):
         return
 
     inMessage = message.content.lower()
+
+    #Raider.io commands
+    if inMessage.startswith("!raider"):
+        #Parameter 1 = Character or command, if character Parameter 2 = Realm
+        #if character search command (i.e. Euralyian WrymrestAccord)
+            #if raider.io already knows that character
+                #Construct link to profile
+                #Send as message
+            #else
+                #if character exists in WoW Armory
+                    #if scan finds character
+                        #Construct link to profile
+                        #Send as message
+                    #else
+                        #Send "Raider.io could not find character."
+                #else
+                    # Send "character does not exist"
+        #elif help command
+            #Produce list of commands, including parameters (!raider <name> <server>)
+            #Include explainations of what each command does.
+        
+        return #Prevents the rest of the script from running
+    
     #global list
     global anduin
     global humanGuard
@@ -81,6 +104,13 @@ async def on_message(message):
         await client.send_message(message.channel, sylvanas.check(inMessage))
     else:
         sylvanas.resetStreak()
+    
+    #Get serverID of message
+    print(discord.__version__)
+    serverID = message.guild.id
+    print("Message sent to ServerID: " + str(serverID))
+    #Store streak values in map. Key = Server ID, Content = integer array
+    #This does not need to be written to a file because there's no need to keep track of streaks if bot goes offline
         
 
 @client.event
