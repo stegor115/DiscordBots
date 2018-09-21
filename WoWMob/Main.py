@@ -8,6 +8,7 @@ from npc import Arthas
 from npc import HumanGuard
 from npc import LichKing
 from npc import OrcPeon
+from npc import Saurfang
 from npc import Sylvanas
 
 #Due to this bot being available on Github, for security the token is parsed in from an excluded file.
@@ -25,6 +26,7 @@ arthas = Arthas.Arthas()
 orcPeon = OrcPeon.OrcPeon()
 humanGuard = HumanGuard.HumanGuard()
 lichKing = LichKing.LichKing()
+saurfang = Saurfang.Saurfang()
 sylvanas = Sylvanas.Sylvanas()
 
 @client.event
@@ -36,38 +38,42 @@ async def on_message(message):
     inMessage = message.content.lower()
 
     #Raider.io commands
-    if inMessage.startswith("!raider"):
+    if inMessage.startswith("/raider"):
         #Parameter 1 = Character or command, if character Parameter 2 = Realm
-        #if character search command (i.e. Euralyian WrymrestAccord)
-            #if raider.io already knows that character
-                #Construct link to profile
-                #Send as message
-            #else
-                #if character exists in WoW Armory
-                    #if scan finds character
-                        #Construct link to profile
-                        #Send as message
-                    #else
-                        #Send "Raider.io could not find character."
-                #else
-                    # Send "character does not exist"
-        #elif help command
-            #Produce list of commands, including parameters (!raider <name> <server>)
-            #Include explainations of what each command does.
-        
-        return #Prevents the rest of the script from running
+        splitMessage = inMessage.split(" ", 3) #["/raider", "<name>", <server>, <region>]
+        #if character search command (i.e. Euralyian WrymrestAccord US)
+        if(len(splitMessage) == 4):
+            hyperlink = "https://raider.io/characters/"
+            #United States and Oceania
+            if splitMessage[3] == 'us' or splitMessage[3] == 'oc' or splitMessage == 'united states' or splitMessage == 'oceania':
+                with open("realmlists/us.txt", "r") as ins:
+                    servers = []
+                    for line in ins:
+                        servers.append(line.rstrip('\n'))
+                print(servers) #DEBUG
+                if splitMessage[2] in servers:
+                    hyperlink = hyperlink + splitMessage[3] + "/" + splitMessage[2] + "/" + splitMessage[1]
+                    await client.send_message(message.channel, hyperlink)
+                else:
+                    hyperlink = "Could not find " + splitMessage[2] + " in US/OC server list."
+                    await client.send_message(message.channel, hyperlink)
+        else:
+            #Incorrect usage message
+            print("splitMessage was not 4 long")
+        return #stops rest of script from running
     
+    #Fun stuff below---------------------------------------------------------
     #global list
     global myMap
     global anduin
     global humanGuard
     global orcPeon
+    global saurfang
     global sylvanas
 
-    #DEBUG
-    potato = os.listdir('C:/Users/Stephen/Desktop/Folders/Code/Projects/Python/DiscordBots/WoWMob/npc') # dir is your directory path
+    npcDir = str(os.getcwd()) + "/npc" # So it works on any machine
+    potato = os.listdir(npcDir)
     totalIDs = len(potato) - 2 #2 files aren't actually npcs
-    #DEBUG
 
     #Get serverID of message
     serverID = message.server.id
@@ -123,6 +129,15 @@ async def on_message(message):
     else:
         orcPeon.resetStreak(myMap[serverID], myID)
     
+    #Varok Saurfang
+    myID = myID + 1
+    if inMessage.startswith("/target saurfang") or inMessage.startswith("/target varok saurfang"):
+        if saurfang.getStreak(myMap[serverID], myID) == 0:
+            await client.send_file(message.channel, "img/saurfang.jpg")
+        await client.send_message(message.channel, saurfang.check(inMessage, myMap[serverID], myID))
+    else:
+        saurfang.resetStreak(myMap[serverID], myID)
+
     #Sylvanas Windrunner
     myID = myID + 1
     if inMessage.startswith("/target sylvanas"):
