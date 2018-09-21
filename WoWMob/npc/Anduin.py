@@ -1,17 +1,18 @@
 from random import randrange
 class Anduin(object):
     def __init__(self):
-        self.streak = 0
-    def check(self, message):
+        self.streak = 0 #Redundant but python didn't like a blank init
+    def check(self, message, myStreak, id):
         #Will check streak to see which response it needs
-        if self.streak < 7:
-            self.streak = self.streak + 1
+        print("streak = " + str(myStreak))
+        if myStreak[id] < 7:
+            myStreak[id] = myStreak[id] + 1
             return self.response()
-        elif self.streak >= 7 and self.streak < 12:
-            self.streak = self.streak + 1
+        elif myStreak[id] >= 7 and myStreak[id] < 12:
+            myStreak[id] = myStreak[id] + 1
             return self.pissed()
         else:
-            self.streak = 1
+            myStreak[id] = 1
             return self.response()
     def response(self): #Regular responses
         responses = [
@@ -34,7 +35,7 @@ class Anduin(object):
         ] #End array
         choice = randrange(len(responses))
         return responses[choice]
-    def getStreak(self): #Returns streak to detirmine if picture should be posted
-        return self.streak
-    def resetStreak(self): #Resets streak if interrupted
-        self.streak = 0
+    def getStreak(self, myStreak, id): #Returns streak to detirmine if picture should be posted
+        return myStreak[id]
+    def resetStreak(self, myStreak, id): #Resets streak if interrupted
+        myStreak[id] = 0

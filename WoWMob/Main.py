@@ -1,4 +1,5 @@
 import discord
+import os
 from random import randrange
 
 #Custom imports
@@ -17,6 +18,7 @@ client = discord.Client()
 
 #Global Variable List
 lastMessage = ""
+myMap = dict()
 #Global NPC Variables
 anduin = Anduin.Anduin()
 arthas = Arthas.Arthas()
@@ -56,61 +58,78 @@ async def on_message(message):
         return #Prevents the rest of the script from running
     
     #global list
+    global myMap
     global anduin
     global humanGuard
     global orcPeon
     global sylvanas
 
+    #DEBUG
+    potato = os.listdir('C:/Users/Stephen/Desktop/Folders/Code/Projects/Python/DiscordBots/WoWMob/npc') # dir is your directory path
+    totalIDs = len(potato) - 2 #2 files aren't actually npcs
+    #DEBUG
+
+    #Get serverID of message
+    serverID = message.server.id
+    if serverID not in myMap:
+        #Create and fill streaks array for new server
+        streaks = [0 for i in range(totalIDs)]
+        #Store streak values in map. Key = Server ID, Content = integer array
+        myMap[serverID] = streaks
+
+    myID = 0 #Used to keep track of IDs with less hardcoding
     #List of potential targets (Alphabetical Order)
     #King Anduin Wrynn
     if inMessage.startswith("/target anduin") or inMessage.startswith("/target king anduin"):
-        if anduin.getStreak() == 0:
+        if anduin.getStreak(myMap[serverID], myID) == 0:
             await client.send_file(message.channel, "img/anduin.jpg")
-        await client.send_message(message.channel, anduin.check(inMessage))
+        await client.send_message(message.channel, anduin.check(inMessage, myMap[serverID], myID))
     else:
-        anduin.resetStreak()
+        anduin.resetStreak(myMap[serverID], myID)
+    
     #Arthas Menethil
+    myID = myID + 1
     if inMessage.startswith("/target arthas") or inMessage.startswith("/target prince arthas"):
-        if arthas.getStreak() == 0:
+        if arthas.getStreak(myMap[serverID], myID) == 0:
             await client.send_file(message.channel, "img/arthas.jpg")
-        await client.send_message(message.channel, arthas.check(inMessage))
+        await client.send_message(message.channel, arthas.check(inMessage, myMap[serverID], myID))
     else:
-        arthas.resetStreak()
+        arthas.resetStreak(myMap[serverID], myID)
+    
+    #Human Guard
+    myID = myID + 1
+    if inMessage.startswith("/target stormwind guard"):
+        if humanGuard.getStreak(myMap[serverID], myID) == 0:
+            await client.send_file(message.channel, "img/stormwindguard.png")
+        await client.send_message(message.channel, humanGuard.check(inMessage, myMap[serverID], myID))
+    else:
+        humanGuard.resetStreak(myMap[serverID], myID)
     #Orc Peon
+    myID = myID + 1
     if inMessage.startswith("/target orc peon"):
         if orcPeon.getStreak() == 0:
             await client.send_file(message.channel, "img/orcpeon.jpg")
-        await client.send_message(message.channel, orcPeon.check(inMessage))
+        await client.send_message(message.channel, orcPeon.check(inMessage, myMap[serverID], myID))
     else:
         orcPeon.resetStreak()
+    
     #Lich King
+    myID = myID + 1
     if inMessage.startswith("/target lich king") or inMessage.startswith("/target the lich king"):
         if lichKing.getStreak() == 0:
             await client.send_file(message.channel, "img/lichking.jpg")
-        await client.send_message(message.channel, lichKing.check(inMessage))
+        await client.send_message(message.channel, lichKing.check(inMessage, myMap[serverID], myID))
     else:
         lichKing.resetStreak()
-    #Stormwind Guard
-    if inMessage.startswith("/target stormwind guard"):
-        if humanGuard.getStreak() == 0:
-            await client.send_file(message.channel, "img/stormwindguard.png")
-        await client.send_message(message.channel, humanGuard.check(inMessage))
-    else:
-        humanGuard.resetStreak()
+    
     #Sylvanas Windrunner
+    myID = myID + 1
     if inMessage.startswith("/target sylvanas"):
         if sylvanas.getStreak() == 0:
             await client.send_file(message.channel, "img/sylvanas.jpg")
-        await client.send_message(message.channel, sylvanas.check(inMessage))
+        await client.send_message(message.channel, sylvanas.check(inMessage, myMap[serverID], myID))
     else:
         sylvanas.resetStreak()
-    
-    #Get serverID of message
-    print(discord.__version__)
-    serverID = message.guild.id
-    print("Message sent to ServerID: " + str(serverID))
-    #Store streak values in map. Key = Server ID, Content = integer array
-    #This does not need to be written to a file because there's no need to keep track of streaks if bot goes offline
         
 
 @client.event

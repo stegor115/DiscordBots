@@ -2,7 +2,7 @@ from random import randrange
 class OrcPeon(object):
     def __init__(self):
         self.streak = 0
-    def check(self, message):
+    def check(self, message, myStreak, id):
         #Will check streak to see which response it needs
         #Add If another / exists in phrase
         if self.streak < 7:

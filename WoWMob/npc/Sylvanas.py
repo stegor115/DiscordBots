@@ -2,7 +2,7 @@ from random import randrange
 class Sylvanas(object):
     def __init__(self):
         self.streak = 0
-    def check(self, message):
+    def check(self, message, myStreak, id):
         #Will check streak to see which response it needs
         if self.streak < 7:
             self.streak = self.streak + 1
