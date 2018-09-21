@@ -104,32 +104,33 @@ async def on_message(message):
         await client.send_message(message.channel, humanGuard.check(inMessage, myMap[serverID], myID))
     else:
         humanGuard.resetStreak(myMap[serverID], myID)
-    #Orc Peon
-    myID = myID + 1
-    if inMessage.startswith("/target orc peon"):
-        if orcPeon.getStreak() == 0:
-            await client.send_file(message.channel, "img/orcpeon.jpg")
-        await client.send_message(message.channel, orcPeon.check(inMessage, myMap[serverID], myID))
-    else:
-        orcPeon.resetStreak()
-    
+
     #Lich King
     myID = myID + 1
     if inMessage.startswith("/target lich king") or inMessage.startswith("/target the lich king"):
-        if lichKing.getStreak() == 0:
+        if lichKing.getStreak(myMap[serverID], myID) == 0:
             await client.send_file(message.channel, "img/lichking.jpg")
         await client.send_message(message.channel, lichKing.check(inMessage, myMap[serverID], myID))
     else:
-        lichKing.resetStreak()
+        lichKing.resetStreak(myMap[serverID], myID)
+
+    #Orc Peon
+    myID = myID + 1
+    if inMessage.startswith("/target orc peon"):
+        if orcPeon.getStreak(myMap[serverID], myID) == 0:
+            await client.send_file(message.channel, "img/orcpeon.jpg")
+        await client.send_message(message.channel, orcPeon.check(inMessage, myMap[serverID], myID))
+    else:
+        orcPeon.resetStreak(myMap[serverID], myID)
     
     #Sylvanas Windrunner
     myID = myID + 1
     if inMessage.startswith("/target sylvanas"):
-        if sylvanas.getStreak() == 0:
+        if sylvanas.getStreak(myMap[serverID], myID) == 0:
             await client.send_file(message.channel, "img/sylvanas.jpg")
         await client.send_message(message.channel, sylvanas.check(inMessage, myMap[serverID], myID))
     else:
-        sylvanas.resetStreak()
+        sylvanas.resetStreak(myMap[serverID], myID)
         
 
 @client.event

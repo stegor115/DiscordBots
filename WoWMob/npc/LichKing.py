@@ -4,14 +4,15 @@ class LichKing(object):
         self.streak = 0
     def check(self, message, myStreak, id):
         #Will check streak to see which response it needs
-        if self.streak < 7:
-            self.streak = self.streak + 1
+        print("streak = " + str(myStreak))
+        if myStreak[id] < 7:
+            myStreak[id] = myStreak[id] + 1
             return self.response()
-        elif self.streak == 7: #Changed because only one pissed off line exists
-            self.streak = self.streak + 1
+        elif myStreak[id] >= 7 and myStreak[id] < 12:
+            myStreak[id] = myStreak[id] + 1
             return self.pissed()
         else:
-            self.streak = 1
+            myStreak[id] = 1
             return self.response()
     def response(self): #Regular responses
         responses = [
@@ -27,7 +28,7 @@ class LichKing(object):
     def pissed(self): #Responses if pinged too many times without any interuptions
         #Only has one pissed off line
         return "Remember who owns your soul, Death Knight!"
-    def getStreak(self): #Returns streak to detirmine if picture should be posted
-        return self.streak
-    def resetStreak(self): #Resets streak if interrupted
-        self.streak = 0
+    def getStreak(self, myStreak, id): #Returns streak to detirmine if picture should be posted
+        return myStreak[id]
+    def resetStreak(self, myStreak, id): #Resets streak if interrupted
+        myStreak[id] = 0
