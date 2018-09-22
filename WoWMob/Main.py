@@ -1,5 +1,8 @@
 import discord
 import os
+import requests
+import json
+
 from random import randrange
 
 #Custom imports
@@ -44,22 +47,57 @@ async def on_message(message):
         #if character search command (i.e. Euralyian WrymrestAccord US)
         if(len(splitMessage) == 4):
             hyperlink = "https://raider.io/characters/"
-            #United States and Oceania
+            region = "error"
+            #Get Regions
             if splitMessage[3] == 'us' or splitMessage[3] == 'oc' or splitMessage == 'united states' or splitMessage == 'oceania':
-                with open("realmlists/us.txt", "r") as ins:
+                region = "us"
+            elif splitMessage[3] == 'eu' or splitMessage[3] == 'europe':
+                region = "eu"
+            elif splitMessage[3] == 'ko' or splitMessage[3] == 'korea':
+                region = "ko"
+            elif splitMessage[3] == 'tw' or splitMessage[3] == 'taiwan' or splitMessage[3] == 'ch' or splitMessage[3] == 'china':
+                region = "tw"
+            #Construct link
+            if region != 'error':
+                realmList = "realmlists/" + region + ".txt"
+                with open(realmList, "r") as ins:
                     servers = []
                     for line in ins:
                         servers.append(line.rstrip('\n'))
-                print(servers) #DEBUG
-                if splitMessage[2] in servers:
-                    hyperlink = hyperlink + splitMessage[3] + "/" + splitMessage[2] + "/" + splitMessage[1]
-                    await client.send_message(message.channel, hyperlink)
+                
+                if "'" in splitMessage[2]: #Removes apostrophies from server name if it was present
+                    splitMessage[2] = splitMessage[2].replace("'","")
+
+                if splitMessage[2] in servers: #Server is possible!
+                    #Raider.io API ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    apiParameters = {"region":region, "realm":str(splitMessage[2]), "name":str(splitMessage[1]), "fields":"gear,mythic_plus_scores,raid_progression"} #region, server, name, optional fields
+                    charInfo = requests.get("http://raider.io/api/v1/characters/profile", params=apiParameters)
+                    charInfo = charInfo.json()
+
+                    if 'statusCode' not in charInfo:
+                        #Summary string. It's big and ugly but it's nice when it's in the chat.
+                        summary = "__**" + charInfo['name'] +"'s Player Summary " + "(" + charInfo['active_spec_role'] + ")**__\n\
+" + charInfo['gender'].capitalize() + " " + charInfo['race'] + " " + charInfo['active_spec_name'] + " " + charInfo['class'] + "\n\
+" + "Equipped Item Level: " + str(charInfo['gear']['item_level_equipped']) + "\n\
+" + "Total Item Level: " + str(charInfo['gear']['item_level_total']) + "\n\
+" + "Uldir Progression: " + charInfo['raid_progression']['uldir']['summary'] + "| Normal: " + str(charInfo['raid_progression']['uldir']['normal_bosses_killed']) + "/8 \
+" + "Heroic: " + str(charInfo['raid_progression']['uldir']['heroic_bosses_killed']) + "/8 Mythic: " + str(charInfo['raid_progression']['uldir']['mythic_bosses_killed']) + "/8 \n\
+" + "Mythic+ Score: " + str(charInfo['mythic_plus_scores']['all']) + "| DPS: " + str(charInfo['mythic_plus_scores']['dps']) + " Healer: " + str(charInfo['mythic_plus_scores']['healer']) + " Tank: \
+" + str(charInfo['mythic_plus_scores']['tank']) + "\n\
+" + charInfo['profile_url']
+
+                        await client.send_message(message.channel, summary)
+                    else:
+                        await client.send_message(message.channel, "Raider.io does not know this character.")
+
                 else:
-                    hyperlink = "Could not find " + splitMessage[2] + " in US/OC server list."
-                    await client.send_message(message.channel, hyperlink)
+                    msg = "Could not find " + splitMessage[2] + " in "+ splitMessage[3] + " server list."
+                    await client.send_message(message.channel, msg + "\n \
+For servers with spaces in their name, replace the spaces with dashes\"-\".")
         else:
             #Incorrect usage message
-            print("splitMessage was not 4 long")
+            await client.send_message(message.channel, "/raider usage: \"/raider <name> <server> <region>\" \n \
+For servers with spaces in their name, replace the spaces with dashes\"-\".")
         return #stops rest of script from running
     
     #Fun stuff below---------------------------------------------------------
