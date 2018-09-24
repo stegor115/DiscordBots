@@ -1,0 +1,181 @@
+{
+  "name": "Ulsoga",
+  "race": "Orc",
+  "class": "Warlock",
+  "active_spec_name": "Affliction",
+  "active_spec_role": "DPS",
+  "gender": "female",
+  "faction": "horde",
+  "region": "us",
+  "realm": "Skullcrusher",
+  "profile_url": "https://raider.io/characters/us/skullcrusher/Ulsoga",
+  "gear": {
+    "item_level_equipped": 0,
+    "item_level_total": 0,
+    "artifact_traits": 0
+  },
+  "raid_progression": {
+    "uldir": {
+      "summary": "4/10 H",
+      "total_bosses": 10,
+      "normal_bosses_killed": 0,
+      "heroic_bosses_killed": 4,
+      "mythic_bosses_killed": 0
+    },
+    "antorus-the-burning-throne": {
+      "summary": "4/10 H",
+      "total_bosses": 10,
+      "normal_bosses_killed": 0,
+      "heroic_bosses_killed": 4,
+      "mythic_bosses_killed": 0
+    },
+    "tomb-of-sargeras": {
+      "summary": "4/10 H",
+      "total_bosses": 10,
+      "normal_bosses_killed": 0,
+      "heroic_bosses_killed": 4,
+      "mythic_bosses_killed": 0
+    },
+    "the-nighthold": {
+      "summary": "4/10 H",
+      "total_bosses": 10,
+      "normal_bosses_killed": 0,
+      "heroic_bosses_killed": 4,
+      "mythic_bosses_killed": 0
+    },
+    "the-emerald-nightmare": {
+      "summary": "4/10 H",
+      "total_bosses": 10,
+      "normal_bosses_killed": 0,
+      "heroic_bosses_killed": 4,
+      "mythic_bosses_killed": 0
+    },
+    "trial-of-valor": {
+      "summary": "4/10 H",
+      "total_bosses": 10,
+      "normal_bosses_killed": 0,
+      "heroic_bosses_killed": 4,
+      "mythic_bosses_killed": 0
+    }
+  },
+  "mythic_plus_ranks": {
+    "overall": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "tank": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "healer": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "dps": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class_tank": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class_healer": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class_dps": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    }
+  },
+  "mythic_plus_scores": {
+    "all": 0,
+    "dps": 0,
+    "healer": 0,
+    "tank": 0
+  },
+  "previous_mythic_plus_ranks": {
+    "overall": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "tank": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "healer": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "dps": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class_tank": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class_healer": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    },
+    "class_dps": {
+      "world": 799,
+      "region": 564,
+      "realm": 20
+    }
+  },
+  "previous_mythic_plus_scores": {
+    "all": 0,
+    "dps": 0,
+    "healer": 0,
+    "tank": 0
+  },
+  "mythic_plus_recent_runs": [
+    {
+      "dungeon": "Court of Stars",
+      "short_name": "COS",
+      "mythic_level": 11,
+      "completed_at": "2017-04-16T20:19:04.000Z",
+      "clear_time_ms": 1273763,
+      "num_keystone_upgrades": 2,
+      "score": 114,
+      "url": "https://raider.io/mythic-plus/runs/263-11-court-of-stars"
+    }
+  ],
+  "mythic_plus_best_runs": [
+    {
+      "dungeon": "Court of Stars",
+      "short_name": "COS",
+      "mythic_level": 11,
+      "completed_at": "2017-04-16T20:19:04.000Z",
+      "clear_time_ms": 1273763,
+      "num_keystone_upgrades": 2,
+      "score": 114,
+      "url": "https://raider.io/mythic-plus/runs/263-11-court-of-stars"
+    }
+  ]
+}
