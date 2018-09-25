@@ -101,7 +101,7 @@ For servers with spaces in their name, replace the spaces with dashes\"-\".")
         return #stops rest of script from running
     
     #Fun stuff below---------------------------------------------------------
-    #global list
+    #global listr
     global myMap
     global anduin
     global humanGuard

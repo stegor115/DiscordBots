@@ -1,181 +1,149 @@
 {
-  "name": "Ulsoga",
-  "race": "Orc",
-  "class": "Warlock",
-  "active_spec_name": "Affliction",
-  "active_spec_role": "DPS",
-  "gender": "female",
-  "faction": "horde",
-  "region": "us",
-  "realm": "Skullcrusher",
-  "profile_url": "https://raider.io/characters/us/skullcrusher/Ulsoga",
-  "gear": {
-    "item_level_equipped": 0,
-    "item_level_total": 0,
-    "artifact_traits": 0
+  "anduin": {
+    "id" : 0,
+    "responses" : 
+    [
+      "For the Alliance above all.",
+      "A just cause is always worth fighting for.",
+      "Greetings friend.",
+      "A king is only as noble as the cause that he serves.",
+      "Stormwind will endure.",
+      "Sometimes we must fight for what we believe in.",
+      "Stormwind honors your service to the Alliance."
+    ],
+    "angry" :
+    [
+      "Now is not a time for that.",
+      "You try my patience.",
+      "You know I'm king now, right?",
+      "The light shall burn you!"
+    ]
   },
-  "raid_progression": {
-    "uldir": {
-      "summary": "4/10 H",
-      "total_bosses": 10,
-      "normal_bosses_killed": 0,
-      "heroic_bosses_killed": 4,
-      "mythic_bosses_killed": 0
-    },
-    "antorus-the-burning-throne": {
-      "summary": "4/10 H",
-      "total_bosses": 10,
-      "normal_bosses_killed": 0,
-      "heroic_bosses_killed": 4,
-      "mythic_bosses_killed": 0
-    },
-    "tomb-of-sargeras": {
-      "summary": "4/10 H",
-      "total_bosses": 10,
-      "normal_bosses_killed": 0,
-      "heroic_bosses_killed": 4,
-      "mythic_bosses_killed": 0
-    },
-    "the-nighthold": {
-      "summary": "4/10 H",
-      "total_bosses": 10,
-      "normal_bosses_killed": 0,
-      "heroic_bosses_killed": 4,
-      "mythic_bosses_killed": 0
-    },
-    "the-emerald-nightmare": {
-      "summary": "4/10 H",
-      "total_bosses": 10,
-      "normal_bosses_killed": 0,
-      "heroic_bosses_killed": 4,
-      "mythic_bosses_killed": 0
-    },
-    "trial-of-valor": {
-      "summary": "4/10 H",
-      "total_bosses": 10,
-      "normal_bosses_killed": 0,
-      "heroic_bosses_killed": 4,
-      "mythic_bosses_killed": 0
-    }
+
+  "arthas": {
+    "id": 1,
+    "responses" : 
+    [
+      "May the light have mercy, for I will not.",
+        "I will not allow this plague to spread.",
+        "Lordearon will be saved.",
+        "This city will be cleased!",
+        "A small sacrifice for the greater good."
+    ],
+    "angry" :
+    [
+      "Are you looking to be... culled??",
+      "Focus on the task at hand!",
+      "Do interruptions never seize?!",
+      "You have your orders, now follow them!"
+    ]
   },
-  "mythic_plus_ranks": {
-    "overall": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "tank": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "healer": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "dps": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class_tank": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class_healer": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class_dps": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    }
+
+  "humanGuard": {
+    "id": 2,
+    "responses" : 
+    [
+      "Greetings.",
+      "Hey there.",
+      "What can I do for you?",
+      "Light be with you.",
+      "Well met.",
+      "Hello!",
+      "Light bless you.",
+      "King's honor, friend",
+      "Forget something?"
+    ],
+    "angry" :
+    [
+      "I'm kinda busy.",
+      "Quit it!",
+      "What's your problem?",
+      "Knock it off!",
+      "You're getting on my nerves."
+    ]
   },
-  "mythic_plus_scores": {
-    "all": 0,
-    "dps": 0,
-    "healer": 0,
-    "tank": 0
+
+  "lichKing": {
+    "id": 3,
+    "responses" : 
+    [
+      "All life... must end.",
+      "Speak...",
+      "Your will... is not your own.",
+      "Frostmourne hungers.",
+      "Bow to your master.",
+      "All. Must. Die."
+    ],
+    "angry" :
+    [
+      "I'm kinda busy.",
+      "Quit it!",
+      "What's your problem?",
+      "Knock it off!",
+      "You're getting on my nerves."
+    ]
   },
-  "previous_mythic_plus_ranks": {
-    "overall": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "tank": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "healer": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "dps": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class_tank": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class_healer": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    },
-    "class_dps": {
-      "world": 799,
-      "region": 564,
-      "realm": 20
-    }
+
+  "orcPeon": {
+    "id": 4,
+    "responses" : 
+    [
+      "Yes?",
+      "Hmm?",
+      "What you want?",
+      "Something need doing?",
+      "Work, work."
+    ],
+    "angry" :
+    [
+      "Whaaaat?",
+      "Me busy, leave me alone!!",
+      "Me not that kind of orc!"
+    ]
   },
-  "previous_mythic_plus_scores": {
-    "all": 0,
-    "dps": 0,
-    "healer": 0,
-    "tank": 0
+
+  "saurfang": {
+    "id": 5,
+    "responses" : 
+    [
+      "I am Saurfang, brother of Broxigar.",
+      "Lok'tar.",
+      "Throm'ka.",
+      "I serve the Horde.",
+      "Now is not the time for pleasantries.",
+      "Speak quickly and speak the truth.",
+      "What would you ask of me?"
+    ],
+    "angry" :
+    [
+      "I'm too old for this nonsense.",
+      "If you knew how much blood has stained my axe, you would not be so quick to pester me!",
+      "Why do you keep prodding me? Is there another war to fight? Ugh, what am I saying... there is always another war to fight.",
+      "I have served many warchiefs. Go travel the world a bit. No doubt you will run into a number of them."
+    ]
   },
-  "mythic_plus_recent_runs": [
-    {
-      "dungeon": "Court of Stars",
-      "short_name": "COS",
-      "mythic_level": 11,
-      "completed_at": "2017-04-16T20:19:04.000Z",
-      "clear_time_ms": 1273763,
-      "num_keystone_upgrades": 2,
-      "score": 114,
-      "url": "https://raider.io/mythic-plus/runs/263-11-court-of-stars"
-    }
-  ],
-  "mythic_plus_best_runs": [
-    {
-      "dungeon": "Court of Stars",
-      "short_name": "COS",
-      "mythic_level": 11,
-      "completed_at": "2017-04-16T20:19:04.000Z",
-      "clear_time_ms": 1273763,
-      "num_keystone_upgrades": 2,
-      "score": 114,
-      "url": "https://raider.io/mythic-plus/runs/263-11-court-of-stars"
-    }
-  ]
+
+  "sylvanas": {
+    "id": 6,
+    "responses" : 
+    [
+      "We are the Forsaken. We will slaughter anyone who stands in our way.",
+        "What are we if not slaves to this torment?",
+        "What joy is there in this curse?",
+        "State your business to your Warchief.",
+        "I trust you will not waste my time.",
+        "Come forward.",
+        "Greetings, champion.",
+        "Our true work is just beginning.",
+        "There will be a new future for the Horde.",
+        "Serve me well, and you will be rewarded."
+    ],
+    "angry" :
+    [
+      "No doubt I am your favorite Windrunner sister... right? Right?",
+      "I have taken note of your progress. It seems I may have to send you to Nathanos for remedial training.",
+      "Did you think I would not notice the way you leer at my dark rangers? I suggest you keep your eyes--and thoughts--to yourself.",
+      "Plans, little old me? What sort of plans could I possibly have?"
+    ]
+  }
 }
