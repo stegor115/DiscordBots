@@ -20,48 +20,64 @@ async def on_message(message):
         return
 
     inMessage = message.content
-    serverID = message.server
-
+    serverID = message.server.id
     # Creation of an event
     # !create <name> <date> <time> <description>
     # eventID is created via count of readLines in server's file
     if inMessage.startswith("!create "):
+        if authCheck(serverID, message.author) == False:
+            await client.send_message(message.channel, "Unauthorized User.")
+            return #Stop
         parameters = inMessage.split()
         print(parameters) #DEBUG
         if len(parameters) == 5:
             return #DEBUG
         else:
             await client.send_message(message.channel, "Invalid entry, type \"!create\" for help.")
-        return #Stop rest of script from running
+            return #Stop rest of script from running
     #Usage explanation
     elif inMessage == "!create":
+        if authCheck(serverID, message.author) == False:
+            await client.send_message(message.channel, "Unauthorized User.")
+            return #Stop
         await client.send_message(message.channel, "__**Usage:**__\n!create <name> <date> <server time> <description>\
-        \nName example: Awesome-Guild-Meeting\nDate example: 1-1-2000")
+        \nName example: Awesome-Guild-Meeting\nTime example: 1800 (Military Time)\nDate example: 1-1-2000")
         return #Stop rest of script from running
 
     #Authorize members of non-automated ranks
     #Parameters = !authorize <@User>
     if inMessage.startswith("!authorize "):
+        if authCheck(serverID, message.author) == False:
+            await client.send_message(message.channel, "Unauthorized User.")
+            return #Stop
+        #End auth check if
         parameters = inMessage.split()
         if len(parameters) == 2:
-            print(*message.mentions)
-            serverID = 'data/users' + str(serverID) + ".txt"
-            myWriteFile = open(serverID, "w+")
+            serverID = 'data/users/' + str(serverID) + ".txt"
+            myWriteFile = open(serverID, "a")
             myReadFile = open(serverID, "r")
+            allMentions = [None] * len(message.mentions)
+            for i in range(len(message.mentions)):
+                allMentions[i] = str(message.mentions[i]) + "\n"
+            #end for
             for line in myReadFile:
-                if line in message.mentions:
+                if line in allMentions:
+                    line = line.replace("\n","")
                     await client.send_message(message.channel, str(line) + " is already an authorized user.")
-                    message.mentions.remove(line)
+                    return #Stop everything
             #End for
             for i in range(len(message.mentions)):
-                myWriteFile.write(str(message.mentions[i]))
-                await client.send_message(message.channel, "Added " + message.mentions[i] + " as an authorized user.")
+                myWriteFile.write(str(message.mentions[i]) + "\n")
+                await client.send_message(message.channel, "Added " + str(message.mentions[i]) + " as an authorized user.")
         else:
             await client.send_message(message.channel, "Invalid entry, type \"!authorize\" for help.")
         #Authorize users here
         return #Debug
     elif inMessage == "!authorize":
         #Usage explaination
+        if authCheck(serverID, message.author) == False:
+            await client.send_message(message.channel, "Unauthorized User.")
+            return #Stop
         await client.send_message(message.channel, "__**Usage:**__\n!authorize <@user>")
 
 @client.event
@@ -70,5 +86,18 @@ async def on_ready():
     print(client.user.name + " Online!")
     print(client.user.id)
     print('------------------------------------')
+
+def authCheck(serverID, author):
+    serverID = 'data/users/' + str(serverID) + ".txt"
+    myReadFile = open(serverID, "w+")
+    if os.stat(serverID).st_size == 0:
+        myReadFile.write(str(author) + "\n")
+        return True
+    for line in myReadFile:
+        line = line.replace("\n","")
+        if str(author) == line:
+            return True
+    #End for
+    return False
 
 client.run(TOKEN)
