@@ -54,21 +54,15 @@ async def on_message(message):
         parameters = inMessage.split()
         if len(parameters) == 2:
             serverID = 'data/users/' + str(serverID) + ".txt"
-            myWriteFile = open(serverID, "a")
-            myReadFile = open(serverID, "r")
-            allMentions = [None] * len(message.mentions)
-            for i in range(len(message.mentions)):
-                allMentions[i] = str(message.mentions[i]) + "\n"
-            #end for
-            for line in myReadFile:
-                if line in allMentions:
+            with open(serverID, "r+") as myFile:
+                for line in myFile:
                     line = line.replace("\n","")
-                    await client.send_message(message.channel, str(line) + " is already an authorized user.")
-                    return #Stop everything
-            #End for
-            for i in range(len(message.mentions)):
-                myWriteFile.write(str(message.mentions[i]) + "\n")
-                await client.send_message(message.channel, "Added " + str(message.mentions[i]) + " as an authorized user.")
+                    print(line)
+                    if line == str(message.mentions[0]):
+                        await client.send_message(message.channel, str(line) + " is already an authorized user.")
+                        return #Stop everything
+                myFile.write(str(message.mentions[0]) + '\n')
+                await client.send_message(message.channel, "Added " + str(message.mentions[0]) + " as an authorized user.")
         else:
             await client.send_message(message.channel, "Invalid entry, type \"!authorize\" for help.")
         #Authorize users here
