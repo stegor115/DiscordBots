@@ -54,18 +54,18 @@ async def on_message(message):
         parameters = inMessage.split()
         if len(parameters) == 2:
             serverID = 'data/users/' + str(serverID) + ".txt"
-            with open(serverID, "r+") as myFile:
-                for line in myFile:
-                    line = line.replace("\n","")
-                    print(line)
-                    if line == str(message.mentions[0]):
-                        await client.send_message(message.channel, str(line) + " is already an authorized user.")
-                        return #Stop everything
+            myReadFile = open(serverID, "r+")
+            lines = [line.rstrip('\n') for line in myReadFile]
+            myReadFile.close()
+            if str(message.mentions[0]) in lines:
+                await client.send_message(message.channel, str(message.mentions[0]) + " is already an authorized user.")
+            else:
+                myFile = open(serverID, 'a')
                 myFile.write(str(message.mentions[0]) + '\n')
                 await client.send_message(message.channel, "Added " + str(message.mentions[0]) + " as an authorized user.")
+                myFile.close()
         else:
             await client.send_message(message.channel, "Invalid entry, type \"!authorize\" for help.")
-        #Authorize users here
         return #Debug
     elif inMessage == "!authorize":
         #Usage explaination
@@ -83,14 +83,16 @@ async def on_ready():
 
 def authCheck(serverID, author):
     serverID = 'data/users/' + str(serverID) + ".txt"
-    myReadFile = open(serverID, "w+")
-    if os.stat(serverID).st_size == 0:
-        myReadFile.write(str(author) + "\n")
+    myReadFile = open(serverID, "r+")
+    lines = [line.rstrip('\n') for line in myReadFile]
+    myReadFile.close()
+    if not lines:
+        myFile = open(serverID, "w")
+        myFile.write(str(author) + "\n")
+        myFile.close()
         return True
-    for line in myReadFile:
-        line = line.replace("\n","")
-        if str(author) == line:
-            return True
+    if str(author) in lines:
+        return True
     #End for
     return False
 
